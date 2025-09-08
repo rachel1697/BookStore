@@ -1,0 +1,24 @@
+name: Python API Tests
+on:
+ push:
+  branches: [main]
+jobs:
+ test_BookStore:
+   runs-on: ubuntu-latest
+   env:
+    USER_NAME: ${{ secrets.USER_NAME }}
+    BASE_URL: ${{ secrets.BASE_URL }}
+    PASSWORD: ${{ secrets.PASSWORD }}
+   steps:
+   - uses: actions/checkout@v3
+   - name: Set up Python
+     uses: actions/setup-python@v4
+     with:
+      python-version: '3.13'
+   - name: Install dependencies
+     run: |
+      pip install -r requirements.txt
+   - name: Run API tests
+     run: |
+      pytest api_tests
+   
